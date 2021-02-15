@@ -5,28 +5,28 @@ import exp.db.Value;
 import exp.db.ValueType;
 import exp.db.CustomType;
 import exp.db.CustomValue;
-import tink.pure.List;
+import tink.pure.Vector;
 
 
 @:asserts
 class ParserTest {
 	var type = new CustomType({
 		name: 'Event',
-		fields: [
+		fields: ([
 			{
 				name: 'Link',
-				args: [
+				args: ([
 					{name: 'v1', type: Integer},
 					{name: 'v2', type: Custom('Event')},
-				]
+				]:Vector<Argument>),
 			},
 			{
 				name: 'Leaf',
-				args: [
+				args: ([
 					{name: 'v1', type: Text},
-				]
+				]:Vector<Argument>),
 			},
-		]
+		]:Vector<Field>),
 	});
 	
 	public function new() {}

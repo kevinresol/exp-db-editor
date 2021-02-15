@@ -79,6 +79,6 @@ class DatabaseView extends View {
 	';
 	
 	override function viewDidMount() {
-		activeTable = database.tableNames.first().orNull();
+		activeTable = database.tableNames[0];
 	}
 } 

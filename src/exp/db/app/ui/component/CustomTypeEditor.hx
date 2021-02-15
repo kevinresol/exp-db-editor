@@ -4,23 +4,18 @@ import mui.core.*;
 import mui.icon.Icon;
 import mui.core.styles.Styles.*;
 import exp.db.ValueType;
+import exp.db.app.util.CustomTypeParser;
 import haxe.macro.Expr.TypeDefinition;
+import tink.pure.Vector;
 
 class CustomTypeEditor extends View {
 	
-	@:attr var tables:PureList<String>;
-	@:attr var onSubmit:PureList<CustomType>->Void = null;
-	@:attr var initialValue:PureList<CustomType>;
+	@:attr var tables:Vector<String>;
+	@:attr var onSubmit:Vector<CustomType>->Void = null;
+	@:attr var initialValue:Vector<CustomType>;
 	@:state var value:String = '';
 	
-	@:skipCheck @:computed var typedefs:Outcome<Array<TypeDefinition>, Error> = {
-		Error.catchExceptions(() -> {
-			var e = new haxeparser.HaxeParser(byte.ByteData.ofString(value), '').parse();
-			e.decls.map(v -> haxeparser.DefinitionConverter.convertTypeDef([], v.decl)).filter(v -> v.kind == TDEnum);
-		});
-	}
-	
-	@:skipCheck @:computed var types:Outcome<Array<CustomType>, Error> = typedefs.flatMap((list:Array<TypeDefinition>) -> Error.catchExceptions(() -> [for(def in list) (def:CustomType)]));
+	@:computed var types:Outcome<Vector<CustomType>, Error> = CustomTypeParser.parse(value);
 	
 	static final printer = new haxe.macro.Printer();
 	

@@ -12,10 +12,10 @@ typedef Raw = {
 }
 class DatabaseModel implements Model {
 	@:constant var tables:ObservableMap<String, TableModel> = @byDefault new ObservableMap([]);
-	@:editable var types:List<CustomType> = @byDefault null;
+	@:editable var types:Vector<CustomType> = @byDefault null;
 	
-	@:computed var tableNames:List<String> = [for(table in tables.keys()) table];
-	@:computed var typeNames:List<String> = types.map(t -> t.name);
+	@:computed var tableNames:Vector<String> = [for(table in tables.keys()) table];
+	@:computed var typeNames:Vector<String> = types.map(t -> t.name);
 	
 	public function addTable(name:String) {
 		if(!tables.exists(name)) tables.set(name, new TableModel({name: name}));
@@ -29,11 +29,14 @@ class DatabaseModel implements Model {
 				Failure(new Error('Invalid content data'));
 			case [Success(schema), Success(content)]:
 				Success(fromDatabase({
-					tables: [for(table in schema.tables) {
+					tables: schema.tables.map(table -> {
 						name: table.name,
 						columns: table.columns,
-						rows: content.tables.first(v -> v.name == table.name).map(v -> v.rows).orNull(),
-					}],
+						rows: switch content.tables.find(v -> v.name == table.name) {
+							case null: null;
+							case v: v.rows;
+						},
+					}),
 					types: schema.types,
 				}));
 		}
@@ -82,7 +85,7 @@ class TableModel implements Model {
 	@:constant var columns:ObservableArray<Column> = @byDefault new ObservableArray();
 	@:constant var rows:ObservableArray<ObservableMap<String, Content>> = @byDefault new ObservableArray();
 	
-	@:computed var columnNames:List<String> = [for(column in columns.values()) column.name];
+	@:computed var columnNames:Vector<String> = [for(column in columns.values()) column.name];
 	
 	public static function fromTable(v:Table) {
 		return new TableModel({
@@ -115,19 +118,19 @@ class TableModel implements Model {
 		}
 	}
 	
-	public static function fromColumns(v:List<Column>):ObservableArray<Column> {
+	public static function fromColumns(v:Vector<Column>):ObservableArray<Column> {
 		return new ObservableArray(v.toArray());
 	}
 	
-	public static function toColumns(v:ObservableArray<Column>):List<Column> {
+	public static function toColumns(v:ObservableArray<Column>):Vector<Column> {
 		return v.toArray();
 	}
 	
-	public static function fromRows(v:List<Row>):ObservableArray<ObservableMap<String, Content>> {
+	public static function fromRows(v:Vector<Row>):ObservableArray<ObservableMap<String, Content>> {
 		return new ObservableArray([for(row in v) new ObservableMap([for(name => value in row) name => (value:Content)])]);
 	}
 	
-	public static function toRows(v:ObservableArray<ObservableMap<String, Content>>):List<Row> {
+	public static function toRows(v:ObservableArray<ObservableMap<String, Content>>):Vector<Row> {
 		return [for(row in v.values()) ([for(key in row.keys()) key => row.get(key).value]:Row)];
 	}
 }

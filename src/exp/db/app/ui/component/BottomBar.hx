@@ -7,7 +7,7 @@ import mui.core.styles.Styles.*;
 class BottomBar extends View {
 	@:controlled var activeTable:String;
 	@:controlled var showCustomTypeEditor:Bool;
-	@:attr var tables:PureList<String>;
+	@:attr var tables:Vector<String>;
 	@:attr var children:Children;
 	
 	@:react.injected var classes:{

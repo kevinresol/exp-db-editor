@@ -4,7 +4,7 @@ import mui.core.*;
 
 class TableAdder extends View {
 	@:attr var open:Bool;
-	@:attr var tables:PureList<String>;
+	@:attr var tables:Vector<String>;
 	@:attr var onCancel:Void->Void = null;
 	@:attr var onConfirm:String->Void;
 	

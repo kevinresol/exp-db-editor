@@ -4,8 +4,8 @@ import mui.core.*;
 import exp.db.ValueType;
 
 class ValueTypeSelector extends View {
-	@:attr var tables:PureList<String>;
-	@:attr var customs:PureList<String>;
+	@:attr var tables:Vector<String>;
+	@:attr var customs:Vector<String>;
 	@:controlled var type:ValueType;
 	
 	static var list:Array<ValueType> = [

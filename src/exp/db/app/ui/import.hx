@@ -1,6 +1,6 @@
-import tink.state.*;
 import coconut.react.*;
-import coconut.data.List as PureList;
+import tink.state.*;
+import tink.pure.Vector;
 import cix.Style.rule as css;
 
 using tink.CoreApi;

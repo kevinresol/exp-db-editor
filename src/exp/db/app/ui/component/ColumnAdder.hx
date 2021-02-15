@@ -4,9 +4,9 @@ import mui.core.*;
 using StringTools;
 class ColumnAdder extends View {
 	@:attr var open:Bool;
-	@:attr var columns:PureList<Column>;
-	@:attr var tables:PureList<String>;
-	@:attr var customs:PureList<String>;
+	@:attr var columns:Vector<Column>;
+	@:attr var tables:Vector<String>;
+	@:attr var customs:Vector<String>;
 	@:attr var onCancel:Void->Void = null;
 	@:attr var onConfirm:Column->Void;
 	@:attr var initial:Column = null;
@@ -92,7 +92,7 @@ class ColumnAdder extends View {
 		}
 	}
 	
-	static function hasDuplicate(list:PureList<String>) {
+	static function hasDuplicate(list:Vector<String>) {
 		var map = new Map();
 		for(v in list) if(map.exists(v)) return true else map[v] = true;
 		return false;

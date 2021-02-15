@@ -25,8 +25,8 @@ enum ContextMenu {
 	
 // @:react.hoc(withStyles(styles))
 class Sheet extends View {
-	@:attr var tableNames:PureList<String>;
-	@:attr var typeNames:PureList<String>;
+	@:attr var tableNames:Vector<String>;
+	@:attr var typeNames:Vector<String>;
 	@:attr var getCustomType:String->Outcome<CustomType, Error>;
 	
 	@:attr var columns:ObservableArray<Column>;
@@ -37,7 +37,7 @@ class Sheet extends View {
 	@:state var showColumnAdder:Bool = false;
 	@:state var disablePageClick:Bool = false;
 	
-	@:computed var columnList:PureList<Column> = [for(column in columns.values()) column];
+	@:computed var columnList:Vector<Column> = [for(column in columns.values()) column];
 	
 	@:skipCheck @:computed var header:Array<Cell<CellValue>> = {
 		var ret = [{value: Header(''), readOnly: true, disableUpdatedFlag: true}];
@@ -316,7 +316,7 @@ class Sheet extends View {
 			case {type: Enumeration(list)}:
 				var value = switch props.cell.value {
 						case Value(Enumeration(v)): v;
-						case _: list.first().orNull();
+						case _: list[0];
 					}
 			
 				disablePageClick = true;
@@ -392,8 +392,8 @@ class Sheet extends View {
 class SubTableEditor extends View {
 	
 	@:attr var onCommit:(value:String, event:js.html.KeyboardEvent)->Void;
-	@:attr var tableNames:PureList<String>;
-	@:attr var typeNames:PureList<String>;
+	@:attr var tableNames:Vector<String>;
+	@:attr var typeNames:Vector<String>;
 	@:attr var getCustomType:String->Outcome<CustomType, Error>;
 	@:attr var columns:ObservableArray<Column>;
 	@:attr var rows:ObservableArray<ObservableMap<String, Content>>;
@@ -437,7 +437,7 @@ class SubTableEditor extends View {
 @:react.hoc(withStyles(styles))
 class DropdownEditor<T> extends View {
 	
-	@:attr var options:PureList<T>;
+	@:attr var options:Vector<T>;
 	@:attr var getOptionLabel:T->String;
 	@:attr var defaultValue:T;
 	@:attr var onCommit:T->Void;
@@ -504,9 +504,9 @@ class ColumnMenu extends View {
 	@:attr var x:Int;
 	@:attr var y:Int;
 	@:attr var column:Column;
-	@:attr var columns:PureList<Column>;
-	@:attr var tables:PureList<String>;
-	@:attr var customs:PureList<String>;
+	@:attr var columns:Vector<Column>;
+	@:attr var tables:Vector<String>;
+	@:attr var customs:Vector<String>;
 	
 	@:attr var onClose:Void->Void;
 	@:attr var onDelete:Void->Void;

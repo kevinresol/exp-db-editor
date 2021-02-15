@@ -24,9 +24,9 @@ class TableView extends View {
 	';
 	
 	function getCustomType(name) {
-		return switch database.types.first(v -> v.name == name) {
-			case Some(v): Success(v);
-			case None: Failure(new Error('Type "$name" not found'));
+		return switch database.types.find(v -> v.name == name) {
+			case null: Failure(new Error('Type "$name" not found'));
+			case v: Success(v);
 		}
 	}
 }

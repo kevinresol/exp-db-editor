@@ -1,7 +1,7 @@
 package exp.db.app.util;
 
 import haxe.macro.Expr;
-import tink.pure.List;
+import tink.pure.Vector;
 
 using tink.CoreApi;
 using Lambda;
@@ -35,7 +35,7 @@ class ValueParser {
 				if(list.exists(i -> i == v)) 
 					Enumeration(v);
 				else
-					throw 'Invalid Value "$v". Expected ' + list.toArray().join(', ');
+					throw 'Invalid Value "$v". Expected ' + list.join(', ');
 				
 			case SubTable(columns):
 				// TODO: check value against table schema
@@ -76,12 +76,12 @@ class ValueParser {
 	public static function parseCustom(type:CustomType, e:Expr, getCustomType:String->Outcome<CustomType, Error>):Outcome<CustomValue, Error> {
 		
 		function check(ctor, numArgs, f:CustomType.Field->CustomValue) {
-			switch type.fields.first(f -> f.name == ctor) {
-				case None:
+			switch type.fields.find(f -> f.name == ctor) {
+				case null:
 					throw 'Field "$ctor" is not part of ${type.name}';
-				case Some(field) if(field.args.length != numArgs):
+				case field if(field.args.length != numArgs):
 					throw 'Expected ${field.args.length} arguments but got ${numArgs}';
-				case Some(field):
+				case field:
 					return f(field);
 			}
 		}
