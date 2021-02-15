@@ -1,0 +1,4 @@
+-lib hxnodejs
+-cp ${SCOPE_DIR}/../hxelectron/src
+-D electron=11.2.3
+--macro Sys.println("haxe_libraries/electron.hxml:3: [Warning] Using dev version of library electron")

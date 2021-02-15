@@ -1,0 +1,11 @@
+-cp electron
+-main Main
+-js bin/electron/app.js
+
+-lib electron
+-lib exp-db-editor
+-lib hxnodejs
+
+-D no-deprecation-warnings
+-D cix.embed
+-debug

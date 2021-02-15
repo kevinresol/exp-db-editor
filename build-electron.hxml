@@ -1,0 +1,5 @@
+-cp electron
+-main Electron
+-js bin/electron/index.js
+
+-lib electron

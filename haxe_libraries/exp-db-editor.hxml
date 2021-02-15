@@ -1,0 +1,10 @@
+-lib exp-db
+-lib cix
+-lib coconut.react-dom
+-lib haxeparser
+-lib material-ui
+-lib tink_core_ext
+-lib tink_json
+-lib why-toast
+-cp src
+-D exp-db-editor=0.0.0

@@ -1,0 +1,15 @@
+{
+	"scripts": {
+		"start": "electron bin/electron"
+	},
+	"devDependencies": {
+		"cix": "",
+		"coconut.react-dom": "",
+		"haxeparser": "",
+		"material-ui": "",
+		"tink_core_ext": "",
+		"tink_json": "",
+		"why-toast": "",
+		"electron": "^11.2.3"
+	}
+}

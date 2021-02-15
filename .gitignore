@@ -1,0 +1,10 @@
+bin/node
+bin/cpp
+bin/java
+bin/hl
+bin/electron/app.js*
+bin/electron/index.js*
+bin/electron/fontawesome/css
+bin/electron/fontawesome/webfonts
+
+node_modules
