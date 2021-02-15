@@ -1,5 +1,7 @@
 # Experimental Game Database Editor
 
+GUI editor for https://github.com/kevinresol/exp-db
+
 ## Demo
 
 Some demo video clips can be found here: https://twitter.com/kevinresol/status/1278713601004453888
